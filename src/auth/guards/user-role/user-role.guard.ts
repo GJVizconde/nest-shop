@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
+import { META_ROLES } from 'src/auth/decorators/role-protected/role-protected.decorator';
 import { User } from 'src/auth/entities/user.entity';
 
 interface AuthenticatedRequest extends Request {
@@ -21,7 +22,7 @@ export class UserRoleGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const validRoles: string[] =
-      this.reflector.get<string[]>('roles', context.getHandler()) || [];
+      this.reflector.get<string[]>(META_ROLES, context.getHandler()) || [];
 
     const req = context.switchToHttp().getRequest<AuthenticatedRequest>();
     const user = req.user;
