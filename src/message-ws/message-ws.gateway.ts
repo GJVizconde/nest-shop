@@ -23,8 +23,8 @@ export class MessageWsGateway
   ) {}
 
   async handleConnection(client: Socket) {
-    // const token = client.handshake.headers.authentication as string;
-    const token = client.handshake.auth.token as string;
+    const token = client.handshake.headers.authentication as string;
+    // const token = client.handshake.auth.token as string;
     let payload: JwtPayload;
 
     try {
